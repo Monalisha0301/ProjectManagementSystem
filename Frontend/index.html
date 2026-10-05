@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Project Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            Project<span>Hub</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="#dashboard">Dashboard</a>
+            <a href="#projects">Projects</a>
+            <a href="#addProject">Add Project</a>
+        </div>
+
+    </nav>
+
+
+    <main class="container">
+
+        <!-- Hero -->
+        <section id="dashboard" class="hero">
+
+            <div>
+                <p class="small-title">PROJECT MANAGEMENT</p>
+
+                <h1>Manage Your Projects</h1>
+
+                <p>
+                    Create, track and manage your projects
+                    from one simple dashboard.
+                </p>
+            </div>
+
+            <div class="hero-icon">
+                📊
+            </div>
+
+        </section>
+
+
+        <!-- Statistics -->
+        <section class="stats">
+
+            <div class="stat-card">
+                <div class="stat-icon">📁</div>
+
+                <div>
+                    <p>Total Projects</p>
+                    <h2 id="totalProjects">0</h2>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon">🚀</div>
+
+                <div>
+                    <p>In Progress</p>
+                    <h2 id="inProgress">0</h2>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+
+                <div>
+                    <p>Completed</p>
+                    <h2 id="completed">0</h2>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- Add Project -->
+        <section id="addProject" class="form-section">
+
+            <div class="section-heading">
+
+                <p class="small-title">PROJECT DETAILS</p>
+
+                <h2>Add New Project</h2>
+
+            </div>
+
+
+            <div class="project-form">
+
+                <div class="input-group">
+                    <label>Project Name</label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter project name">
+                </div>
+
+
+                <div class="input-group">
+                    <label>Description</label>
+
+                    <input
+                        type="text"
+                        id="description"
+                        placeholder="Enter description">
+                </div>
+
+
+                <div class="input-group">
+                    <label>Status</label>
+
+                    <select id="status">
+
+                        <option value="Planning">
+                            Planning
+                        </option>
+
+                        <option value="In Progress">
+                            In Progress
+                        </option>
+
+                        <option value="Completed">
+                            Completed
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <div class="input-group">
+                    <label>Priority</label>
+
+                    <select id="priority">
+
+                        <option value="Low">
+                            Low
+                        </option>
+
+                        <option value="Medium">
+                            Medium
+                        </option>
+
+                        <option value="High">
+                            High
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <div class="input-group">
+                    <label>Start Date</label>
+
+                    <input
+                        type="date"
+                        id="startDate">
+                </div>
+
+
+                <div class="input-group">
+                    <label>End Date</label>
+
+                    <input
+                        type="date"
+                        id="endDate">
+                </div>
+
+
+                <button
+                    class="primary-btn"
+                    onclick="addProject()">
+
+                    + Add Project
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- Project Section -->
+        <section id="projects">
+
+            <div class="projects-header">
+
+                <div>
+
+                    <p class="small-title">
+                        PROJECT LIST
+                    </p>
+
+                    <h2>All Projects</h2>
+
+                </div>
+
+
+                <div class="search-box">
+
+                    🔍
+
+                    <input
+                        type="text"
+                        id="search"
+                        placeholder="Search projects..."
+                        onkeyup="searchProjects()">
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="projectList"
+                class="project-grid">
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2>Edit Project</h2>
+
+                <span onclick="closeModal()">×</span>
+
+            </div>
+
+
+            <input
+                type="hidden"
+                id="editId">
+
+
+            <div class="input-group">
+
+                <label>Project Name</label>
+
+                <input
+                    type="text"
+                    id="editName">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Description</label>
+
+                <input
+                    type="text"
+                    id="editDescription">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Status</label>
+
+                <select id="editStatus">
+
+                    <option value="Planning">
+                        Planning
+                    </option>
+
+                    <option value="In Progress">
+                        In Progress
+                    </option>
+
+                    <option value="Completed">
+                        Completed
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Priority</label>
+
+                <select id="editPriority">
+
+                    <option value="Low">
+                        Low
+                    </option>
+
+                    <option value="Medium">
+                        Medium
+                    </option>
+
+                    <option value="High">
+                        High
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Start Date</label>
+
+                <input
+                    type="date"
+                    id="editStartDate">
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>End Date</label>
+
+                <input
+                    type="date"
+                    id="editEndDate">
+
+            </div>
+
+
+            <button
+                class="primary-btn"
+                onclick="updateProject()">
+
+                Save Changes
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+
+        <p>
+            © 2026 ProjectHub | Project Management System
+        </p>
+
+    </footer>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
+
